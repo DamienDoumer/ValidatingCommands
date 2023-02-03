@@ -1,7 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace ValidatingCommands
 {
     public class WeatherForecast
     {
+        [JsonIgnore]
         public DateOnly Date { get; set; }
 
         public int TemperatureC { get; set; }

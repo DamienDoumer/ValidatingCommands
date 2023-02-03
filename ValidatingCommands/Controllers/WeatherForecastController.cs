@@ -1,4 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ValidatingCommands.Commands;
+using ValidatingCommands.DataService;
 
 namespace ValidatingCommands.Controllers
 {
@@ -12,28 +15,28 @@ namespace ValidatingCommands.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IMediator _mediator;
+        private readonly IDataService _dataService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, 
+            IMediator mediator, IDataService dataService)
         {
             _logger = logger;
+            _mediator = mediator;
+            _dataService = dataService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await _dataService.ReadForecast();
         }
 
         [HttpPost(Name = "SaveForecast")]
-        public IActionResult SaveForecast([FromBody] WeatherForecast weatherForecast)
+        public async Task<IActionResult> SaveForecast([FromBody] WeatherForecast weatherForecast)
         {
-
+            await _mediator.Send(new SaveForecast.Command(weatherForecast));
+            return Ok();
         }
     }
 }
