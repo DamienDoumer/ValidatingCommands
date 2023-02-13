@@ -2,11 +2,8 @@
 
 namespace ValidatingCommands.Commands.Helpers;
 
-//REf: https://codeopinion.com/validating-commands/
-//REF: https://code-maze.com/cqrs-mediatr-fluentvalidation/
-
-public interface IValidationHandler<IRequest>
+public interface IValidationHandler<ICommand>
 {
-    Task Validate(IRequest request);
+    Task Validate(ICommand request);
 }
 

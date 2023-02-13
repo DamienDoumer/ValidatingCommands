@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using ValidatingCommands.Commands.Helpers;
 using ValidatingCommands.DataService;
 
 namespace ValidatingCommands.Commands;
 
 public class SaveForecast
 {
-    public record Command(WeatherForecast WeatherForecast) : IRequest<Unit>;
+    public record Command(WeatherForecast WeatherForecast) : ICommand<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
