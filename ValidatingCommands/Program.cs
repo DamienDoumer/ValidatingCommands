@@ -15,9 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IDataService, FakeDataService>();
 
-builder.Services.AddTransient<IValidationHandler<SaveForecast.Command>, SaveForecastValidator>();
+builder.Services.AddTransient<IValidator<SaveForecast.Command>, SaveForecastValidator>();
 builder.Services.AddMediatR(typeof(Program));
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+//If you want the validation to occur on evey request, use this.
+//builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+builder.Services.AddTransient<IPipelineBehavior<SaveForecast.Command, Unit>, ValidationBehavior<SaveForecast.Command, Unit>>();
 
 var app = builder.Build();
 

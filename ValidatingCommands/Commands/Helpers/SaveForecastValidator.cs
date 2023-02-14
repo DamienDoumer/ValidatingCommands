@@ -4,7 +4,7 @@ using ValidatingCommands.DataService;
 
 namespace ValidatingCommands.Commands.Helpers;
 
-public class SaveForecastValidator : IValidationHandler<SaveForecast.Command>
+public class SaveForecastValidator : IValidator<SaveForecast.Command>
 {
     private readonly IDataService _dataService;
 

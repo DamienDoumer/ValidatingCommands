@@ -2,7 +2,7 @@
 
 namespace ValidatingCommands.Commands.Helpers;
 
-public interface IValidationHandler<ICommand>
+public interface IValidator<ICommand>
 {
     Task Validate(ICommand request);
 }

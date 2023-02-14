@@ -7,9 +7,9 @@ namespace ValidatingCommands.Commands;
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {
-    private readonly IValidationHandler<TRequest> _validationHandler;
+    private readonly IValidator<TRequest> _validationHandler;
 
-    public ValidationBehavior(IValidationHandler<TRequest> validationHandler)
+    public ValidationBehavior(IValidator<TRequest> validationHandler)
     {
         _validationHandler = validationHandler;
     }
