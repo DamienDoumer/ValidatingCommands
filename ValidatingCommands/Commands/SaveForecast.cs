@@ -19,12 +19,6 @@ public class SaveForecast
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            //(Validation logic) Checking if a similar forecast already exists first.
-            //var forecasts = await _dataService.ReadForecast();
-            //if (forecasts.Any(f => f.Summary.ToLower() ==
-            //    request.WeatherForecast.Summary.ToLower()))
-            //    throw new Exception("Similar forecast exists");
-
             await _dataService.SaveForecast(request.WeatherForecast);
 
             return Unit.Value;

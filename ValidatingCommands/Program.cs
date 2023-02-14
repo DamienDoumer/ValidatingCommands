@@ -17,15 +17,7 @@ builder.Services.AddSingleton<IDataService, FakeDataService>();
 
 builder.Services.AddTransient<IValidationHandler<SaveForecast.Command>, SaveForecastValidator>();
 builder.Services.AddMediatR(typeof(Program));
-//builder.Services.AddTransient<IPipelineBehavior<SaveForecast.Command, Unit>, SaveForeCastValidationBehavior>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-//builder.Services.AddTransient<SaveForecast.Handler>();
-//builder.Services.AddTransient<IRequestHandler<SaveForecast.Command, Unit>,
-//    CommandValidationDecorator<SaveForecast.Command, Unit>>(sp =>
-//    {
-//        return new CommandValidationDecorator<SaveForecast.Command, Unit>(sp.GetService<SaveForecast.Handler>(), sp.GetService<IValidationHandler<SaveForecast.Command>>());
-//    });
 
 var app = builder.Build();
 
